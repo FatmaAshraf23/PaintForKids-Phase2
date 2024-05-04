@@ -16,3 +16,4 @@ bool operator!=(color a, color b) {
   return !(a == b);
   
 }
+hello
