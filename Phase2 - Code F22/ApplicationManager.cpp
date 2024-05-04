@@ -1,6 +1,9 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
 #include "Actions\SelectAction.h"
+#include "Actions/PickAndHide.h"
+#include <cstdlib>
+#include <ctime>
 
 
 //Constructor
@@ -44,6 +47,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case SELECT: //select
 			pAct = new SelectAction(this);
+			break;
+
+		case TO_PLAY:
+			pAct = new PickAndHide(this);
 			break;
 
 		case EXIT:
@@ -106,6 +113,21 @@ void ApplicationManager::DeselectFigures()
 		SelectedFig[i] = NULL;
 	}
 	SelectedFigCount = 0;
+}
+
+CFigure* ApplicationManager::GetRandom()
+{
+	if (FigCount != 0) 
+	{
+		srand(time(NULL));
+		return FigList[rand() % FigCount];
+	}
+	return nullptr;
+}
+
+int ApplicationManager::GetFigCount() const
+{
+	return FigCount;
 }
 
 //==================================================================================//
